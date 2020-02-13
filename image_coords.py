@@ -6,7 +6,7 @@ from PIL import Image
 def get_bytes_image(coords, spn):
     geocoder_api_server = "http://static-maps.yandex.ru/1.x/"
     map_params = {
-        "ll": coords,
+        "ll": ', '.join(map(str, coords)),
         "spn": spn,
         "l": "map"
     }
