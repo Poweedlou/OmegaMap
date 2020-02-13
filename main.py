@@ -31,9 +31,17 @@ while running:
                 dy *= spn / 2
                 coords[0] += dx
                 coords[1] += dy
+                if coords[1] > 89:
+                    coords[1] = 89
                 update()
             if k == pygame.K_PAGEUP:
                 spn *= 2
+                if spn > 20:
+                    spn /= 2
+                update()
             if k == pygame.K_PAGEDOWN:
                 spn /= 2
+                if spn < 0.002:
+                    spn *= 2
+                update()
     pygame.display.flip()
