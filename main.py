@@ -6,8 +6,8 @@ def update():
     img = pygame.image.load(bio)
     screen.blit(img, (0, 0))
 
-coords = [50.00001, 50.00001]
-spn = 1
+coords = [37.910831, 59.132040]
+spn = 0.125
 keys = {
     pygame.K_UP: (0, 1),
     pygame.K_DOWN: (0, -1),
