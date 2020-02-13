@@ -15,7 +15,7 @@ keys = {
     pygame.K_RIGHT: (1, 0)
 }
 
-screen = pygame.display.set_mode((600, 450))
+screen = pygame.display.set_mode((650, 450))
 update()
 pygame.display.flip()
 running = True
@@ -31,12 +31,18 @@ while running:
                 dy *= spn / 2
                 coords[0] += dx
                 coords[1] += dy
-                if coords[1] > 89:
-                    coords[1] = 89
+                if coords[1] > 90 - spn / 2:
+                    coords[1] = 90 - spn / 2
+                if coords[1] < -90 + spn / 2:
+                    coords[1] = -90 + spn / 2
+                if coords[0] < -180:
+                    coords[0] = 360 - coords[0]
+                if coords[0] > 180:
+                    coords[0] = -360 + coords[0]
                 update()
             if k == pygame.K_PAGEUP:
                 spn *= 2
-                if spn > 20:
+                if spn > 40:
                     spn /= 2
                 update()
             if k == pygame.K_PAGEDOWN:
