@@ -1,9 +1,12 @@
 import pygame
+from image_coords import get_bytes_image
 
+def update():
+    bio = get_bytes_image(coords, spn)
+    img = pygame.image.load(bio)
+    screen.blit(img, (0, 0))
 
-def update(coords, spn):
-    
-coords = [50, 50]
+coords = [50.00001, 50.00001]
 spn = 1
 keys = {
     pygame.K_UP: (0, 1),
@@ -11,8 +14,9 @@ keys = {
     pygame.K_LEFT: (-1, 0),
     pygame.K_RIGHT: (1, 0)
 }
+
 screen = pygame.display.set_mode((600, 450))
-screen.blit(, (0, 0))
+update()
 pygame.display.flip()
 running = True
 while running:
@@ -27,7 +31,9 @@ while running:
                 dy *= spn / 2
                 coords[0] += dx
                 coords[1] += dy
-                update(coords, spn)
-            screen = pygame.display.set_mode((450, 450))
-            screen.blit(d[pos % len(d)], (0, 0))
-            pygame.display.flip()
+                update()
+            if k == pygame.K_PAGEUP:
+                spn *= 2
+            if k == pygame.K_PAGEDOWN:
+                spn /= 2
+    pygame.display.flip()
