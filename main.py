@@ -1,13 +1,15 @@
 import pygame
 from image_coords import get_bytes_image
+from scale import scale
 
 def update():
     bio = get_bytes_image(coords, spn)
     img = pygame.image.load(bio)
     screen.blit(img, (0, 0))
 
-coords = [37.910831, 59.132040]
-spn = 0.125
+
+city = input('Введите начальное место\n')
+coords, spn = scale(city)
 keys = {
     pygame.K_UP: (0, 1),
     pygame.K_DOWN: (0, -1),
