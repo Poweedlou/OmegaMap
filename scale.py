@@ -11,6 +11,11 @@ geocoder_params = {
 def scale(site):
     geocoder_params['geocode'] = site
     response = requests.get(geocoder_api_server, params=geocoder_params)
+    if not response:
+        with open('err.xml', 'wb') as fo:
+            fo.write(response.content)
+        pprint(geocoder_params)
+        return None
     root = lxml.etree.fromstring(response.content)
     lx, ly = list(map(float, root.findtext('.//{*}lowerCorner').split()))
     ux, uy = list(map(float, root.findtext('.//{*}upperCorner').split()))

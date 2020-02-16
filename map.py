@@ -19,36 +19,43 @@ spn_keys = {
 class Map(QLabel):
     def __init__(self, start):
         super().__init__()
+        self.coords = None
+        self.spn = None
+        self.mode = None
         self.findPlace(start)
         self.mode = 'map'
-        self.dots = []
+        self.dot = None
         self.save()
         self.setFixedSize(650, 450)
         self.loadMap()
-
+    
     def findPlace(self, place):
         self.save()
-        self.coords, self.spn = scale(place)
+        try:
+            self.coords, self.spn = scale(place)
+            self.dot = tuple(self.coords)
+        except:
+            pass
 
     def save(self):
         self.prev_coords = self.coords
         self.prev_spn = self.spn
         self.prev_mode = self.mode
-
+    
     def go_back(self):
         self.coords = self.prev_coords
         self.spn = self.prev_spn
         self.mode = self.prev_mode
-
+    
     def loadMap(self):
-        a = get_bytes_image(self.coords, self.spn, self.mode)
+        a = get_bytes_image(self.coords, self.spn, self.mode, self.dot)
         if a is None:
             self.go_back()
         else:
             self.img = QPixmap()
             self.img.loadFromData(a)
             self.setPixmap(self.img)
-
+    
     def moveMap(self, dir_):
         self.save()
         dx, dy = dir_
@@ -60,19 +67,19 @@ class Map(QLabel):
         self.save()
         self.spn *= 2**ds
         self.loadMap()
-
+    
     def changeMap(self, mode):
         self.save()
         self.mode = mode
         self.loadMap()
-
+    
     def mousePressEvent(self, ev):
         b = ev.button()
         if b == 1:
             self.setFocus()
         if b == 2:
             pass
-
+    
     def keyPressEvent(self, event):
         key = event.key()
         try:
