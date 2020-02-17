@@ -32,10 +32,15 @@ class Map(QLabel):
     def findPlace(self, place):
         self.save()
         try:
-            self.coords, self.spn = scale(place)
+            self.coords, self.spn, adress, code = scale(place)
             self.dot = tuple(self.coords)
+            return adress, code
         except:
             pass
+    
+    def flush(self):
+        self.dot = None
+        self.loadMap()
 
     def save(self):
         self.prev_coords = self.coords
