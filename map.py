@@ -64,7 +64,7 @@ class Map(QLabel):
     def moveMap(self, dir_):
         self.save()
         dx, dy = dir_
-        self.coords[0] += dx * self.spn
+        self.coords[0] += dx * self.spn * 2.5
         self.coords[1] += dy * self.spn
         self.loadMap()
 
